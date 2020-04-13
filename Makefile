@@ -24,9 +24,9 @@ $(BUILDPATH):
 .PHONY: requirements
 requirements: $(REQUIREMENTS_RESULT)
 
-$(REQUIREMENTS_RESULT): setup.py $(SRCPATH)/requirements.txt | build_dirs
+$(REQUIREMENTS_RESULT): setup.py $(SRCPATH)/requirements/*.txt | build_dirs
 	pip install -U pip wheel setuptools
-	pip install --upgrade --requirement $(SRCPATH)/requirements.txt
+	pip install --upgrade --requirement $(SRCPATH)/requirements/development.txt
 	pip freeze > $@
 
 
