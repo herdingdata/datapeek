@@ -1,3 +1,5 @@
+-r _base.txt
+
 black
 coverage
 pytest

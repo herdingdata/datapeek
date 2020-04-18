@@ -6,6 +6,7 @@ When you just need to know what's in the file.
 ## Supported file types
 
 - parquet
+- avro
 
 ## Usage
 

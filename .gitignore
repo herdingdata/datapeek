@@ -8,3 +8,5 @@ __pycache__
 
 pip-wheel-metadata/
 *.egg-info/
+src/datapeek/tests/test_integration_dontcommitme.py
+*.DS_Store

@@ -9,7 +9,7 @@ if sys.version_info < (3, 6, 0):
 
 setup(
     name="datapeek",
-    version="0.0.1",
+    version="0.0.2",
     description="Peek at data in a variety of formats",
     author="Andy Herd",
     # author_email="",
