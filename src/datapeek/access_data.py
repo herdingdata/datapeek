@@ -14,11 +14,11 @@ def get_filetype_from_path(filepath: str):
     return filepath[posn_of_last_fullstop + 1 :]
 
 
-def get_peek_function(filetype: str):
+def get_df_function(filetype: str):
     functions = {
-        "parquet": peek_parquet,
-        "avro": peek_avro,
-        "csv": peek_csv,
+        "parquet": get_df_from_parquet,
+        "avro": get_df_from_avro,
+        "csv": get_df_from_csv,
     }
     filetype = filetype.lower()
     if filetype not in functions.keys():
@@ -29,32 +29,17 @@ def get_peek_function(filetype: str):
     return functions[filetype]
 
 
-def show_df_key_info(df: pd.DataFrame):
-    print("\nSize: \n")
-    print(f"Number of rows: {df.shape[0]}")
-    print(f"Number of columns ({df.shape[1]}):")
-    print("\nPreview: \n")
-    print(df)
-    cols = {c: df[c].dtype for c in df.columns}
-    print(f"\nColumns:")
-    for colname, coltype in cols.items():
-        print(f"    {colname} ({coltype})")
+def get_df_from_parquet(filepath: str):
+    return pd.read_parquet(filepath, engine="pyarrow")
 
 
-def peek_parquet(filepath: str):
-    df = pd.read_parquet(filepath, engine="pyarrow")
-    show_df_key_info(df)
-
-
-def peek_avro(filepath: str):
+def get_df_from_avro(filepath: str):
     with open(filepath, "rb") as avrofile:
         reader = fastavro.reader(avrofile)
         records = [r for r in reader]
-        df = pd.DataFrame.from_records(records)
-        show_df_key_info(df)
+        return pd.DataFrame.from_records(records)
 
 
-def peek_csv(filepath: str):
+def get_df_from_csv(filepath: str):
     encode = encoding.get_encoding(filepath)
-    df = pd.read_csv(filepath, encoding=encode, engine='python')
-    show_df_key_info(df)
+    return pd.read_csv(filepath, encoding=encode, engine='python')

@@ -1,12 +1,20 @@
 import click
 
-from datapeek.access_data import get_filetype_from_path, get_peek_function
-
+from datapeek.access_data import get_filetype_from_path, get_df_function
+from datapeek import describe
 
 @click.command()
+@click.option('-s', '--size', is_flag=True)
+@click.option('-c', '--columns', is_flag=True)
 @click.argument("filepath")
-def peek(filepath: str) -> None:
+def peek(filepath: str, size: bool, columns: bool) -> None:
     """Entrypoint for the datapeek command line tool."""
     filetype = get_filetype_from_path(filepath)
-    peek_function = get_peek_function(filetype)
-    peek_function(filepath)
+    df_function = get_df_function(filetype)
+    df = df_function(filepath)
+    if size:
+        describe.describe_size(df)
+    elif columns:
+        describe.describe_columns(df)
+    else:
+        describe.describe_all_df_key_info(df)
