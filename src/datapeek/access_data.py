@@ -1,7 +1,7 @@
 import fastavro
 import pandas as pd
 
-from datapeek import errors, encoding
+from datapeek import encoding, errors
 
 
 def get_filetype_from_path(filepath: str):
@@ -42,4 +42,4 @@ def get_df_from_avro(filepath: str):
 
 def get_df_from_csv(filepath: str):
     encode = encoding.get_encoding(filepath)
-    return pd.read_csv(filepath, encoding=encode, engine='python')
+    return pd.read_csv(filepath, encoding=encode, engine="python")

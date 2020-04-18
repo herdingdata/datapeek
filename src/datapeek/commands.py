@@ -1,11 +1,12 @@
 import click
 
-from datapeek.access_data import get_filetype_from_path, get_df_function
 from datapeek import describe
+from datapeek.access_data import get_df_function, get_filetype_from_path
+
 
 @click.command()
-@click.option('-s', '--size', is_flag=True)
-@click.option('-c', '--columns', is_flag=True)
+@click.option("-s", "--size", is_flag=True)
+@click.option("-c", "--columns", is_flag=True)
 @click.argument("filepath")
 def peek(filepath: str, size: bool, columns: bool) -> None:
     """Entrypoint for the datapeek command line tool."""

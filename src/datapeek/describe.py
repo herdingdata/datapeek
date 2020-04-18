@@ -1,5 +1,6 @@
-import pandas as pd
 from pprint import pprint as pp
+
+import pandas as pd
 
 
 def describe_all_df_key_info(df: pd.DataFrame):
@@ -28,7 +29,7 @@ def describe_columns(df: pd.DataFrame):
     print(f"\nColumns:")
     cols = {c: df[c].dtype for c in df.columns}
     for colname, coltype in cols.items():
-        if coltype == 'object':
+        if coltype == "object":
             max_size = max(df[colname].astype(str).apply(len))
             pp((f"{colname}", f"{coltype}", f"max_length={max_size}"))
             # print(f"    {colname}\t({coltype})\tmax_length={max_size}")
