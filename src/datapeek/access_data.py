@@ -1,9 +1,7 @@
-import csv
-
 import fastavro
 import pandas as pd
 
-from datapeek import errors, inspect_text
+from datapeek import errors, encoding
 
 
 def get_filetype_from_path(filepath: str):
@@ -57,15 +55,6 @@ def peek_avro(filepath: str):
 
 
 def peek_csv(filepath: str):
-    encoding, separator, quote_char = inspect_text.get_text_file_info(filepath)
-    if quote_char == "":
-        df = pd.read_csv(filepath, encoding=encoding, sep=separator)
-    else:
-        df = pd.read_csv(
-            filepath,
-            encoding=encoding,
-            sep=separator,
-            quotechar=quote_char,
-            quoting=csv.QUOTE_ALL,
-        )
+    encode = encoding.get_encoding(filepath)
+    df = pd.read_csv(filepath, encoding=encode, engine='python')
     show_df_key_info(df)
