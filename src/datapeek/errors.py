@@ -5,5 +5,6 @@ class DatapeekUnknownFiletypeError(RuntimeError):
 class DatapeekNoFiletypeError(RuntimeError):
     pass
 
+
 class DatapeekCouldNotDetectEncoding(RuntimeError):
     pass
