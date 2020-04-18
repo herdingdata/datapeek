@@ -8,6 +8,9 @@ so it is best suited to flat files (not hierarchical data).
 
 ## Supported file types
 
+Datapeek uses the file's extension to determine the file type, so your file must end with one of the
+following:
+
 - parquet
 - avro
 - csv
@@ -53,7 +56,12 @@ The `-s/--size` switch to shows a description of how big the data is:
 $ datapeek [filepath] --size
 1 rows x 3 columns
 ```
+The `-r/--recursive` switch allows you to pass an entire folder (as long as the folder contains 
+files which all have an identical, supported, file extension):
 
+```
+$ datapeek [folderpath] --recursive [optionally any other switches]
+```
 
 ## Getting started as a developer
 1. `git clone` the repo

@@ -4,7 +4,7 @@ import sys
 
 from setuptools import find_packages, setup
 
-if sys.version_info < (3, 6, 0):
+if sys.version_info < (3, 7, 0):
     raise Exception("This project designed for Python >= 3.7.")
 
 setup(

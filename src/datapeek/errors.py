@@ -1,6 +1,8 @@
 class DatapeekUnknownFiletypeError(RuntimeError):
     pass
 
+class DatapeekMoreThanOneFiletypeError(RuntimeError):
+    pass
 
 class DatapeekNoFiletypeError(RuntimeError):
     pass
