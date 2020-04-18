@@ -1,7 +1,9 @@
+import csv
+
 import fastavro
 import pandas as pd
 
-from datapeek import errors
+from datapeek import errors, inspect_text
 
 
 def get_filetype_from_path(filepath: str):
@@ -18,7 +20,9 @@ def get_peek_function(filetype: str):
     functions = {
         "parquet": peek_parquet,
         "avro": peek_avro,
+        "csv": peek_csv,
     }
+    filetype = filetype.lower()
     if filetype not in functions.keys():
         raise errors.DatapeekUnknownFiletypeError(
             f"{filetype} is not a supported file type, "
@@ -50,3 +54,18 @@ def peek_avro(filepath: str):
         records = [r for r in reader]
         df = pd.DataFrame.from_records(records)
         show_df_key_info(df)
+
+
+def peek_csv(filepath: str):
+    encoding, separator, quote_char = inspect_text.get_text_file_info(filepath)
+    if quote_char == "":
+        df = pd.read_csv(filepath, encoding=encoding, sep=separator)
+    else:
+        df = pd.read_csv(
+            filepath,
+            encoding=encoding,
+            sep=separator,
+            quotechar=quote_char,
+            quoting=csv.QUOTE_ALL,
+        )
+    show_df_key_info(df)
