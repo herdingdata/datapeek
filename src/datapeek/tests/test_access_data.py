@@ -20,3 +20,15 @@ def test__get_peek_function__unknown_filetype__raises_error():
     ftype = "notaparquet"
     with pytest.raises(DatapeekUnknownFiletypeError):
         access_data.get_peek_function(filetype=ftype)
+
+
+def test_get_encoding():
+    sample = '/Users/andyherd/scratch/001.avro'
+    encoding = access_data.get_encoding(sample)
+    assert encoding == 'TIS-620'
+
+
+def test_peek_avro():
+    sample = '/Users/andyherd/scratch/001.avro'
+    encoding = access_data.peek_avro(sample)
+    assert encoding == 0

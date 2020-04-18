@@ -1,3 +1,5 @@
 click
+chardet
+fastavro
 pandas
 pyarrow
